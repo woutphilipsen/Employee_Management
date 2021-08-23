@@ -136,11 +136,11 @@
                     >
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{ route('users.index') }}"
-                                >User</a
+                                >Users</a
                             >
-                            <a class="collapse-item" href="cards.html">Role</a>
+                            <a class="collapse-item" href="cards.html">Roles</a>
                             <a class="collapse-item" href="cards.html"
-                                >Permission</a
+                                >Permissions</a
                             >
                         </div>
                     </div>

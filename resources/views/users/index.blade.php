@@ -10,6 +10,18 @@
     </div>
     <div class="row">
         <div class="card mx-auto">
+            <div>
+                @if (session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}    
+                    </div>    
+                @endif
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}    
+                    </div>    
+                @endif
+            </div>
             <div class="card-header">
                 <a href="{{ route('users.create') }}" class="float-right">Create User</a>
             </div>
@@ -29,7 +41,9 @@
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>Edit/Delete</td>
+                            <td>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>
+                            </td>
                         </tr>
                       @endforeach
                     </tbody>
