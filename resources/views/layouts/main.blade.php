@@ -52,8 +52,10 @@
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">
-                        {{ Auth::user()->last_name . ' ' .
-                        Auth::user()->first_name }}
+                        <span
+                            class="mr-2 d-none d-lg-inline text-white-600 small"
+                            >{{ Auth::user()->username }}</span
+                        >
                     </div>
                 </a>
 
@@ -133,7 +135,7 @@
                         data-parent="#accordionSidebar"
                     >
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="buttons.html"
+                            <a class="collapse-item" href="{{ route('users.index') }}"
                                 >User</a
                             >
                             <a class="collapse-item" href="cards.html">Role</a>
@@ -177,7 +179,10 @@
                                 >
                                     <span
                                         class="mr-2 d-none d-lg-inline text-gray-600 small"
-                                        >{{ Auth::user()->username }}</span
+                                        ><i class="far fa-user"></i>
+                                        
+                                        {{ Auth::user()->last_name . ' ' .
+                                        Auth::user()->first_name }}</span
                                     >
                                 </a>
                                 <!-- Dropdown - User Information -->
@@ -213,15 +218,7 @@
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
-                        <!-- Page Heading -->
-                        <div
-                            class="d-sm-flex align-items-center justify-content-between mb-4"
-                        >
-                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        </div>
-                        <div class="row">
-                            @yield('content')
-                        </div>
+                        @yield('content')
                     </div>
                     <!-- /.container-fluid -->
                 </div>
