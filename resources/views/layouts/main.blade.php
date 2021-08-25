@@ -104,12 +104,12 @@
                     >
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{ route('countries.index') }}"
-                                >Country</a
+                                >Countries</a
                             >
-                            <a class="collapse-item" href="cards.html">State</a>
-                            <a class="collapse-item" href="cards.html">City</a>
+                            <a class="collapse-item" href="{{ route('states.index') }}">States</a>
+                            <a class="collapse-item" href="cards.html">Cities</a>
                             <a class="collapse-item" href="cards.html"
-                                >Department</a
+                                >Departments</a
                             >
                         </div>
                     </div>
