@@ -107,7 +107,7 @@
                                 >Countries</a
                             >
                             <a class="collapse-item" href="{{ route('states.index') }}">States</a>
-                            <a class="collapse-item" href="cards.html">Cities</a>
+                            <a class="collapse-item" href="{{ route('cities.index') }}">Cities</a>
                             <a class="collapse-item" href="cards.html"
                                 >Departments</a
                             >
