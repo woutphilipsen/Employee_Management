@@ -75,7 +75,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="/employees">
                         <span>Employee Management</span></a
                     >
                 </li>
@@ -108,7 +108,7 @@
                             >
                             <a class="collapse-item" href="{{ route('states.index') }}">States</a>
                             <a class="collapse-item" href="{{ route('cities.index') }}">Cities</a>
-                            <a class="collapse-item" href="cards.html"
+                            <a class="collapse-item" href="{{ route('departments.index') }}"
                                 >Departments</a
                             >
                         </div>
