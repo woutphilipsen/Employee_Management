@@ -79,6 +79,7 @@
                                         />
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label
                                         for="country"
@@ -88,15 +89,19 @@
 
                                     <div class="col-md-6">
                                         <select
+                                            v-model="form.country_id"
+                                            @change="getStates()"
                                             name="country"
-                                            class="custom-select"
+                                            class="form-control"
+                                            aria-label="Default select example"
                                         >
-                                            <option selected
-                                                >Open this select menu</option
+                                            <option placeholder="Select Country" v-for="country in countries" :key="country.id" :value="country.id"
+                                                >{{ country.name }}</option
                                             >
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label
                                         for="state"
@@ -106,11 +111,13 @@
 
                                     <div class="col-md-6">
                                         <select
+                                            v-model="form.state_id"
+                                            @change="getCities()"
                                             name="state"
-                                            class="custom-select"
+                                            class="form-control"
                                         >
-                                            <option selected
-                                                >Open this select menu</option
+                                            <option v-for="state in states" :key="state.id" :value="state.id"
+                                                >{{ state.name }}</option
                                             >
                                         </select>
                                     </div>
@@ -124,11 +131,12 @@
 
                                     <div class="col-md-6">
                                         <select
+                                            v-model="form.city_id"
                                             name="city"
-                                            class="custom-select"
+                                            class="form-control"
                                         >
-                                            <option selected
-                                                >Open this select menu</option
+                                            <option v-for="city in cities" :key="city.id" :value="city.id"
+                                                >{{ city.name }}</option
                                             >
                                         </select>
                                     </div>
@@ -142,11 +150,12 @@
 
                                     <div class="col-md-6">
                                         <select
+                                            v-model="form.department_id"
                                             name="department"
-                                            class="custom-select"
+                                            class="form-control"
                                         >
-                                            <option selected
-                                                >Open this select menu</option
+                                            <option v-for="department in departments" :key="department.id" :value="department.id"
+                                                >{{ department.name }}</option
                                             >
                                         </select>
                                     </div>
@@ -224,16 +233,54 @@ export default {
             states: [],
             cities: [],
             departments: [],
+            form: {
+                first_name: '',
+                middle_name: '',
+                last_name: '',
+                address: '',
+                country_id: '',
+                state_id: '',
+                city_id: '',
+                department_id: '',
+                zip_code: '',
+                birth_date: null,
+                date_hired: null
+            }
         }
     },
     created() {
         this.getCountries();
+        this.getDepartments();
     },
     methods: {
         getCountries() {
             axios.get('/api/employees/countries')
                 .then(res => {
                     this.countries = res.data
+                }).catch(error => {
+                    console.log(console.error)
+                })
+        },
+        getStates() {
+            axios.get('/api/employees/' + this.form.country_id + '/states')
+                .then(res => {
+                    this.states = res.data
+                }).catch(error => {
+                    console.log(console.error)
+                })
+        },
+        getCities() {
+            axios.get('/api/employees/' + this.form.state_id + '/cities')
+                .then(res => {
+                    this.cities = res.data
+                }).catch(error => {
+                    console.log(console.error)
+                })
+        },
+        getDepartments() {
+            axios.get('/api/employees/departments')
+                .then(res => {
+                    this.departments = res.data
                 }).catch(error => {
                     console.log(console.error)
                 })

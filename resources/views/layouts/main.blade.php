@@ -228,7 +228,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
+                            <span>Copyright 2021 &copy; made with <i class="far fa-heart"></i> by <a title="Go to LinkedIn page" style="color: grey" target="_blank" href="https://www.linkedin.com/in/wout-p-686758155/">Philipsen Wout</a></span>
                         </div>
                     </div>
                 </footer>
