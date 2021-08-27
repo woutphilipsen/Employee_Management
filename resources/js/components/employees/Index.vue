@@ -32,7 +32,11 @@
                         </form>
                     </div>
                     <div>
-                        <a href="" class="btn btn-primary mb-2">Create</a>
+                        <router-link 
+                            :to="{ name: 'EmployeesCreate' }" 
+                            class="btn btn-primary mb-2"
+                            >Create
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -41,8 +45,10 @@
                     <thead>
                       <tr>
                         <th scope="col">#Id</th>
-                        <th scope="col">Country Code</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Department</th>
                         <th scope="col">Manage</th>
                       </tr>
                     </thead>
@@ -50,6 +56,8 @@
                       
                         <tr>
                             <th scope="row" class="align-middle"></th>
+                            <td class="align-middle"></td>
+                            <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td class="align-middle"></td>
                             <td>
