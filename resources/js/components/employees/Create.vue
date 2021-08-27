@@ -174,7 +174,9 @@
                                         >Birthdate</label
                                     >
                                     <div class="col-md-6">
-                                        <datepicker input-class="form-control"></datepicker>
+                                        <datepicker
+                                            input-class="form-control"
+                                        ></datepicker>
                                     </div>
                                 </div>
                                 <div class="form-group row mt-2">
@@ -184,7 +186,9 @@
                                         >Date Hired</label
                                     >
                                     <div class="col-md-6">
-                                        <datepicker input-class="form-control"></datepicker>
+                                        <datepicker
+                                            input-class="form-control"
+                                        ></datepicker>
                                     </div>
                                 </div>
 
@@ -208,12 +212,33 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
+import Datepicker from "vuejs-datepicker";
 
 export default {
     components: {
-    Datepicker
-  }
+        Datepicker
+    },
+    data() {
+        return {
+            countries: [],
+            states: [],
+            cities: [],
+            departments: [],
+        }
+    },
+    created() {
+        this.getCountries();
+    },
+    methods: {
+        getCountries() {
+            axios.get('/api/employees/countries')
+                .then(res => {
+                    this.countries = res.data
+                }).catch(error => {
+                    console.log(console.error)
+                })
+        }
+    }
 };
 </script>
 
