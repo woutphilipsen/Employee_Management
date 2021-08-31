@@ -54,12 +54,12 @@
                     </thead>
                     <tbody>
                       
-                        <tr>
-                            <th scope="row" class="align-middle"></th>
-                            <td class="align-middle"></td>
-                            <td class="align-middle"></td>
-                            <td class="align-middle"></td>
-                            <td class="align-middle"></td>
+                        <tr v-for="employee in employees" :key="employee.id">
+                            <td scope="row" class="align-middle">{{ employee.id }}</td>
+                            <td class="align-middle">{{ employee.first_name }}</td>
+                            <td class="align-middle">{{ employee.last_name }}</td>
+                            <td class="align-middle">{{ employee.address }}</td>
+                            <td class="align-middle">{{ employee.department.name }}</td>
                             <td>
                                 <a href="" class="btn btn-success">Edit</a>
                             </td>
@@ -75,8 +75,25 @@
 
 <script>
 export default {
-
-}
+    data() {
+        return {
+            employees: []
+        }
+    },
+    created() {
+        this.getEmployees();
+    },
+    methods: {
+        getEmployees() {
+            axios.get('/api/employees')
+                .then(res => {
+                    this.employees = res.data.data;
+                }).catch(error => {
+                    console.log(error);
+                })
+        }
+    }
+};
 </script>
 
 <style>

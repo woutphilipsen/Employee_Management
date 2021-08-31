@@ -2258,7 +2258,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      employees: []
+    };
+  },
+  created: function created() {
+    this.getEmployees();
+  },
+  methods: {
+    getEmployees: function getEmployees() {
+      var _this = this;
+
+      axios.get('/api/employees').then(function (res) {
+        _this.employees = res.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -59988,7 +60008,43 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(3)
+        _c("div", { staticClass: "card-body" }, [
+          _c("table", { staticClass: "table" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.employees, function(employee) {
+                return _c("tr", { key: employee.id }, [
+                  _c(
+                    "td",
+                    { staticClass: "align-middle", attrs: { scope: "row" } },
+                    [_vm._v(_vm._s(employee.id))]
+                  ),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(employee.first_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(employee.last_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(employee.address))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(employee.department.name))
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4, true)
+                ])
+              }),
+              0
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -60058,43 +60114,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("#Id")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("First Name")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Department")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Manage")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#Id")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("th", { staticClass: "align-middle", attrs: { scope: "row" } }),
-            _vm._v(" "),
-            _c("td", { staticClass: "align-middle" }),
-            _vm._v(" "),
-            _c("td", { staticClass: "align-middle" }),
-            _vm._v(" "),
-            _c("td", { staticClass: "align-middle" }),
-            _vm._v(" "),
-            _c("td", { staticClass: "align-middle" }),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { staticClass: "btn btn-success", attrs: { href: "" } }, [
-                _vm._v("Edit")
-              ])
-            ])
-          ])
-        ])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("First Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Department")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Manage")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-success", attrs: { href: "" } }, [
+        _vm._v("Edit")
       ])
     ])
   }
