@@ -27,3 +27,4 @@ Route::get('/employees/departments', [EmployeeDataController::class, 'department
 
 Route::get('/employees', [EmployeeController::class, 'index']);
 Route::post('/employees', [EmployeeController::class, 'store']);
+Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy']);

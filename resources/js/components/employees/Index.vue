@@ -8,14 +8,10 @@
     </div>
     <div class="row">
         <div class="card mx-auto">
-            <div>
-                
-                    <div class="alert alert-success">
-                    </div>    
-                
-                    <div class="alert alert-danger">
-                    </div>    
-               
+            <div v-if="showMessage">
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>    
             </div>
             <div class="card-header">
                 <div class="row">
@@ -49,7 +45,7 @@
                         <th scope="col">Last Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">Department</th>
-                        <th scope="col">Manage</th>
+                        <th scope="col" class="align-middle">Manage</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,7 +57,12 @@
                             <td class="align-middle">{{ employee.address }}</td>
                             <td class="align-middle">{{ employee.department.name }}</td>
                             <td>
-                                <a href="" class="btn btn-success">Edit</a>
+                                <router-link class="btn btn-success" :to="{ 
+                                    name: 'EmployeesEdit', 
+                                    params: { id: employee.id } }"
+                                    >Edit
+                                </router-link>
+                                <button class="btn btn-danger" @click="deleteEmployee(employee.id)">Delete</button>
                             </td>
                         </tr>
                   
@@ -77,7 +78,9 @@
 export default {
     data() {
         return {
-            employees: []
+            employees: [],
+            showMessage: false,
+            message: ''
         }
     },
     created() {
@@ -91,6 +94,14 @@ export default {
                 }).catch(error => {
                     console.log(error);
                 })
+        },
+        deleteEmployee(id) {
+            axios.delete('api/employees/' + id)
+                .then(res => {
+                    this.showMessage = true;
+                    this.message = res.data
+                    this.getEmployees();
+                });
         }
     }
 };
