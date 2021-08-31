@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\EmployeeSingleResource;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -51,9 +52,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        //
+        return new EmployeeSingleResource($employee);
     }
 
     /**
@@ -89,6 +90,6 @@ class EmployeeController extends Controller
     {
         $employee->delete();
 
-        return response()->json('Deleted Employee');
+        return response()->json('Employee Deleted Successfully');
     }
 }
