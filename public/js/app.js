@@ -2619,35 +2619,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       employees: [],
       showMessage: false,
-      message: ''
+      message: "",
+      search: null,
+      selectedDepartment: null,
+      departments: []
     };
+  },
+  watch: {
+    search: function search() {
+      this.getEmployees();
+    },
+    selectedDepartment: function selectedDepartment() {
+      this.getEmployees();
+    }
   },
   created: function created() {
     this.getEmployees();
+    this.getDepartments();
   },
   methods: {
     getEmployees: function getEmployees() {
       var _this = this;
 
-      axios.get('/api/employees').then(function (res) {
+      axios.get("/api/employees", {
+        params: {
+          search: this.search,
+          department_id: this.selectedDepartment
+        }
+      }).then(function (res) {
         _this.employees = res.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    deleteEmployee: function deleteEmployee(id) {
+    getDepartments: function getDepartments() {
       var _this2 = this;
 
-      axios["delete"]('api/employees/' + id).then(function (res) {
-        _this2.showMessage = true;
-        _this2.message = res.data;
+      axios.get("/api/employees/departments").then(function (res) {
+        _this2.departments = res.data;
+      })["catch"](function (error) {
+        console.log(console.error);
+      });
+    },
+    deleteEmployee: function deleteEmployee(id) {
+      var _this3 = this;
 
-        _this2.getEmployees();
+      axios["delete"]("api/employees/" + id).then(function (res) {
+        _this3.showMessage = true;
+        _this3.message = res.data;
+
+        _this3.getEmployees();
       });
     }
   }
@@ -60980,9 +61042,9 @@ var render = function() {
           ? _c("div", [
               _c("div", { staticClass: "alert alert-success" }, [
                 _vm._v(
-                  "\n                  " +
+                  "\n                    " +
                     _vm._s(_vm.message) +
-                    "\n              "
+                    "\n                "
                 )
               ])
             ])
@@ -60990,7 +61052,82 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-header" }, [
           _c("div", { staticClass: "row" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "col" }, [
+              _c("form", [
+                _c("div", { staticClass: "form-row align-items-center" }, [
+                  _c("div", { staticClass: "col" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search,
+                          expression: "search"
+                        }
+                      ],
+                      staticClass: "form-control mb-2",
+                      attrs: {
+                        type: "search",
+                        placeholder: "Search by First or Last Name"
+                      },
+                      domProps: { value: _vm.search },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedDepartment,
+                            expression: "selectedDepartment"
+                          }
+                        ],
+                        staticClass: "form-control mb-2",
+                        attrs: { name: "city", title: "Search By Department" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedDepartment = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.departments, function(department) {
+                        return _c(
+                          "option",
+                          {
+                            key: department.id,
+                            domProps: { value: department.id }
+                          },
+                          [_vm._v(_vm._s(department.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ])
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -60998,10 +61135,10 @@ var render = function() {
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-primary mb-2",
+                    staticClass: "btn btn-primary mb-2 ml-4",
                     attrs: { to: { name: "EmployeesCreate" } }
                   },
-                  [_vm._v("Create\n                      ")]
+                  [_vm._v("Create New Employee\n                        ")]
                 )
               ],
               1
@@ -61011,7 +61148,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("table", { staticClass: "table" }, [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "tbody",
@@ -61020,23 +61157,45 @@ var render = function() {
                   _c(
                     "td",
                     { staticClass: "align-middle", attrs: { scope: "row" } },
-                    [_vm._v(_vm._s(employee.id))]
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(employee.id) +
+                          "\n                            "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(employee.first_name))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(employee.first_name) +
+                        "\n                            "
+                    )
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(employee.last_name))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(employee.last_name) +
+                        "\n                            "
+                    )
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(employee.address))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(employee.address) +
+                        "\n                            "
+                    )
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(employee.department.name))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(employee.department.name) +
+                        "\n                            "
+                    )
                   ]),
                   _vm._v(" "),
                   _c(
@@ -61053,7 +61212,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Edit\n                              ")]
+                        [_vm._v("Edit\n                                ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -61066,7 +61225,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Delete")]
+                        [
+                          _vm._v(
+                            "\n                                    Delete\n                                "
+                          )
+                        ]
                       )
                     ],
                     1
@@ -61094,43 +61257,10 @@ var staticRenderFns = [
       [
         _c("h1", { staticClass: "h3 mb-0 text-gray-800" }, [
           _c("i", { staticClass: "fas fa-people-carry" }),
-          _vm._v(" Employees")
+          _vm._v(" Employees\n        ")
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-row align-items-center" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("input", {
-              staticClass: "form-control mb-2",
-              attrs: {
-                type: "search",
-                name: "search",
-                id: "inlineFormInput",
-                placeholder: "Jane Doe"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mb-2",
-                attrs: { type: "submit" }
-              },
-              [_vm._v("Search")]
-            )
-          ])
-        ])
-      ])
-    ])
   },
   function() {
     var _vm = this
