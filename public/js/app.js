@@ -2501,10 +2501,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(console.error);
       });
     },
-    storeEmployee: function storeEmployee() {
+    updateEmployee: function updateEmployee() {
       var _this6 = this;
 
-      axios.post('/api/employees', {
+      axios.put('/api/employees/' + this.$route.params.id, {
         'first_name': this.form.first_name,
         'middle_name': this.form.middle_name,
         'last_name': this.form.last_name,
@@ -60941,7 +60941,7 @@ var staticRenderFns = [
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
           [
             _vm._v(
-              "\n                                        Store\n                                    "
+              "\n                                        Update\n                                    "
             )
           ]
         )
